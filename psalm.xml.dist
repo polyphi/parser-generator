@@ -30,6 +30,7 @@
     <extraFiles>
         <ignoreFiles>
             <directory name="vendor/phpspec/prophecy"/>
+            <directory name="tests"/>
         </ignoreFiles>
     </extraFiles>
 
