@@ -6,7 +6,7 @@ namespace Polyphi\Parsers\Grammar;
 
 use Polyphi\Parsers\Utils\InsertArrayCapableTrait;
 
-class Declaration
+class Declaration extends GrammarNode
 {
     use InsertArrayCapableTrait {
         insertArray as protected;
@@ -22,19 +22,19 @@ class Declaration
     /** @var string */
     protected $type;
 
-    /** @var string[] */
-    protected $values;
+    /** @var Token[] */
+    protected $tokens;
 
     /**
      * Constructor.
      *
-     * @param string   $type   One of the TYPE_* constants in {@link Declaration}.
-     * @param string[] $values A list of string values for the declaration's values.
+     * @param string  $type   One of the TYPE_* constants in {@link Declaration}.
+     * @param Token[] $tokens A list of tokens.
      */
-    public function __construct(string $type, array $values = [])
+    public function __construct(string $type, array $tokens = [])
     {
         $this->type = $type;
-        $this->values = $values;
+        $this->tokens = $tokens;
     }
 
     /**
@@ -48,13 +48,13 @@ class Declaration
     }
 
     /**
-     * Retrieves the values of the declaration.
+     * Retrieves the tokens of the declaration.
      *
-     * @return string[] A list of strings.
+     * @return Token[] A list of strings.
      */
-    public function getValues(): array
+    public function getTokens(): array
     {
-        return $this->values;
+        return $this->tokens;
     }
 
     /**
@@ -75,55 +75,45 @@ class Declaration
     }
 
     /**
-     * Creates a derived copy of the declaration with different values.
+     * Creates a derived copy of the declaration with different tokens.
      *
-     * @param string[] $values The new values as a list of strings.
+     * @param Token[] $tokens The new tokens.
      *
      * @return static The created instance.
      */
-    public function withValues(array $values): self
+    public function withTokens(array $tokens): self
     {
         $new = clone $this;
-        $new->values = $values;
+        $new->tokens = $tokens;
 
         return $new;
     }
 
     /**
-     * Creates a derived copy of the declaration with added values.
+     * Creates a derived copy of the declaration with added tokens.
      *
-     * @param string[] $values The values to add, as a list of strings.
+     * @param Token[]  $values The list of tokens to add.
      * @param int|null $idx    Optional index for where to add the new values in the existing list.
      *
      * @return static The created instance.
      */
-    public function withAddedValues(array $values, ?int $idx = null): self
+    public function withAddedTokens(array $values, ?int $idx = null): self
     {
         $new = clone $this;
-        $new->values = $this->insertArray($new->values, $values, $idx);
+        $new->tokens = $this->insertArray($new->tokens, $values, $idx);
 
         return $new;
     }
 
-    /**
-     * Transforms the declaration instance into the equivalent Yacc grammar syntax.
-     *
-     * @return string A string containing grammar code for the declaration.
-     */
+    /** @inheritDoc */
     public function toString(): string
     {
-        $valueStr = implode(' ', $this->values);
+        $tokens = array_map(function (Token $token): string {
+            return $token->toString();
+        }, $this->tokens);
 
-        return trim("%{$this->type} {$valueStr}");
-    }
+        $tokens = implode(' ', $tokens);
 
-    /**
-     * Casts the declaration to a string.
-     *
-     * @see Declaration::toString()
-     */
-    public function __toString(): string
-    {
-        return $this->toString();
+        return trim("%{$this->type} {$tokens}");
     }
 }

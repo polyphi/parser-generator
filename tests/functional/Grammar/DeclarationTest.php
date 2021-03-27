@@ -6,9 +6,12 @@ namespace Polyphi\Parsers\Test\Func\Grammar;
 
 use PHPUnit\Framework\TestCase;
 use Polyphi\Parsers\Grammar\Declaration;
+use Polyphi\Parsers\Test\Helpers\TokenListTestHelper;
 
 class DeclarationTest extends TestCase
 {
+    use TokenListTestHelper;
+
     function testGetType()
     {
         $subject = new Declaration($type = 'foobar');
@@ -16,70 +19,70 @@ class DeclarationTest extends TestCase
         $this->assertEquals($type, $subject->getType());
     }
 
-    function testGetValues()
+    function testGetTokens()
     {
-        $subject = new Declaration('', $values = [
-            'SOMETHING',
-            'ANOTHER_THING',
-            '\'%\'',
-        ]);
+        $tokens = $this->tokenList(['SOMETHING', 'ANOTHER', 'WTF']);
 
-        $this->assertEquals($values, $subject->getValues());
+        $subject = new Declaration('', $tokens);
+
+        $this->assertEquals($tokens, $subject->getTokens());
     }
 
     function testWithType()
     {
-        $subject = new Declaration($old = 'old_type', $values = ['SOMETHING', 'ANOTHER_THING']);
+        $tokens = $this->tokenList(['SOMETHING', 'ANOTHER']);
+        $subject = new Declaration($old = 'old_type', $tokens);
         $result = $subject->withType($new = 'new_type');
 
         $this->assertEquals($new, $result->getType());
-        $this->assertEquals($values, $result->getValues());
+        $this->assertEquals($tokens, $result->getTokens(), 'withType() should not change the tokens');
     }
 
-    function testWithValues()
+    function testWithTokens()
     {
-        $subject = new Declaration($type = 'some_type', $old = ['SOMETHING', 'ANOTHER_THING']);
-        $result = $subject->withValues($new = ['FOOBAR', 'USE_THE_FORCE']);
+        $oldTokens = $this->tokenList(['SOMETHING', 'ANOTHER']);
+        $newTokens = $this->tokenList(['USE_THE_FORCE', 'DAD_PLS_NO']);
 
-        $this->assertEquals($type, $result->getType());
-        $this->assertEquals($new, $result->getValues());
+        $subject = new Declaration($type = 'some_type', $oldTokens);
+        $result = $subject->withTokens($newTokens);
+
+        $this->assertEquals($newTokens, $result->getTokens());
+        $this->assertEquals($type, $result->getType(), 'withTokens() should not change the type');
     }
 
-    function testWithAddedValues()
+    function testWithAddedTokens()
     {
-        $subject = new Declaration($type = 'some_type', ['SOMETHING', 'ANOTHER_THING']);
-        $result = $subject->withAddedValues(['FOOBAR', 'USE_THE_FORCE']);
+        $oldTokens = $this->tokenList(['SOMETHING', 'ANOTHER']);
+        $addTokens = $this->tokenList(['CHOCOLATE', 'SALTY']);
+        $expected = $this->tokenList(['SOMETHING', 'ANOTHER', 'CHOCOLATE', 'SALTY']);
 
-        $expected = ['SOMETHING', 'ANOTHER_THING', 'FOOBAR', 'USE_THE_FORCE'];
+        $subject = new Declaration($type = 'some_type', $oldTokens);
+        $result = $subject->withAddedTokens($addTokens);
 
-        $this->assertEquals($type, $result->getType());
-        $this->assertEquals($expected, $result->getValues());
+        $this->assertEquals($expected, $result->getTokens());
+        $this->assertEquals($type, $result->getType(), 'withTokens() should not change the type');
     }
 
-    function testWithAddedValuesAtIndex()
+    function testWithAddedTokensAtIndex()
     {
-        $subject = new Declaration($type = 'some_type', ['SOMETHING', 'ANOTHER_THING']);
-        $result = $subject->withAddedValues(['FOOBAR', 'USE_THE_FORCE'], 1);
+        $oldTokens = $this->tokenList(['SOMETHING', 'ANOTHER']);
+        $addTokens = $this->tokenList(['CHOCOLATE', 'SALTY']);
+        $expected = $this->tokenList(['SOMETHING', 'CHOCOLATE', 'SALTY', 'ANOTHER']);
 
-        $expected = ['SOMETHING', 'FOOBAR', 'USE_THE_FORCE', 'ANOTHER_THING'];
+        $subject = new Declaration($type = 'some_type', $oldTokens);
+        $result = $subject->withAddedTokens($addTokens, 1);
 
-        $this->assertEquals($type, $result->getType());
-        $this->assertEquals($expected, $result->getValues());
+        $this->assertEquals($expected, $result->getTokens());
+        $this->assertEquals($type, $result->getType(), 'withTokens() should not change the type');
     }
 
     function testToString()
     {
-        $subject = new Declaration('some_type', ['SOMETHING', 'ANOTHER_THING']);
-        $expected = '%some_type SOMETHING ANOTHER_THING';
+        $tokens = $this->tokenList(['SOMETHING', 'ANOTHER']);
+
+        $subject = new Declaration('some_type', $tokens);
+        $expected = '%some_type SOMETHING ANOTHER';
 
         $this->assertEquals($expected, $subject->toString());
-    }
-
-    function testCastToString()
-    {
-        $subject = new Declaration('some_type', ['SOMETHING', 'ANOTHER_THING']);
-        $expected = '%some_type SOMETHING ANOTHER_THING';
-
-        $this->assertEquals($expected, (string) $subject);
     }
 }
