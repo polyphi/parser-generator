@@ -27,7 +27,8 @@
   "autoload-dev": {
     "psr-4": {
       "Polyphi\\Parsers\\Test\\Unit\\": "tests/unit",
-      "Polyphi\\Parsers\\Test\\Func\\": "tests/functional"
+      "Polyphi\\Parsers\\Test\\Func\\": "tests/functional",
+      "Polyphi\\Parsers\\Test\\Helpers\\": "tests/helpers"
     }
   },
   "extra": {
