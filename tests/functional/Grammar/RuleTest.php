@@ -5,15 +5,27 @@ declare(strict_types=1);
 namespace Polyphi\Parsers\Test\Func\Grammar;
 
 use PHPUnit\Framework\TestCase;
+use Polyphi\Parsers\Grammar\GrammarNode;
 use Polyphi\Parsers\Grammar\Rule;
+use Polyphi\Parsers\Test\Helpers\TokenListTestHelper;
 
 class RuleTest extends TestCase
 {
-    function testGetSymbols()
-    {
-        $subject = new Rule($symbols = ['foo', 'bar', 'lorem', 'ipsum'], '');
+    use TokenListTestHelper;
 
-        $this->assertEquals($symbols, $subject->getSymbols());
+    function testIsGrammarNode()
+    {
+        $subject = new Rule([], '');
+
+        $this->assertInstanceOf(GrammarNode::class, $subject);
+    }
+
+    function testGetTokens()
+    {
+        $tokens = $this->tokenList(['foo', 'bar', 'lorem', 'ipsum']);
+        $subject = new Rule($tokens, '');
+
+        $this->assertEquals($tokens, $subject->getTokens());
     }
 
     function testGetCode()
@@ -23,48 +35,55 @@ class RuleTest extends TestCase
         $this->assertEquals($code, $subject->getCode());
     }
 
-    function testWithSymbols()
+    function testWithTokens()
     {
-        $subject = new Rule(['foo', 'bar'], $code = 'someCode();');
-        $result = $subject->withSymbols($new = ['lorem', 'ipsum']);
+        $tokens = $this->tokenList(['foo', 'bar']);
+        $newTokens = $this->tokenList(['lorem', 'ipsum']);
+        $code = 'someCode();';
 
-        $this->assertEquals($new, $result->getSymbols());
+        $subject = new Rule($tokens, $code);
+        $result = $subject->withTokens($newTokens);
+
+        $this->assertEquals($newTokens, $result->getTokens());
         $this->assertEquals($code, $result->getCode());
     }
 
-    function testWithAddedSymbols()
+    function testWithAddedTokens()
     {
-        $subject = new Rule(['foo', 'bar'], $code = 'someCode();');
-        $result = $subject->withAddedSymbols(['lorem', 'ipsum']);
-        $expected = ['foo', 'bar', 'lorem', 'ipsum'];
+        $oldTokens = $this->tokenList(['foo', 'bar']);
+        $addTokens = $this->tokenList(['lorem', 'ipsum']);
+        $expected = $this->tokenList(['foo', 'bar', 'lorem', 'ipsum']);
+        $code = 'someCode();';
 
-        $this->assertEquals($expected, $result->getSymbols());
+        $subject = new Rule($oldTokens, $code);
+        $result = $subject->withAddedTokens($addTokens);
+
+        $this->assertEquals($expected, $result->getTokens());
         $this->assertEquals($code, $result->getCode());
     }
 
-    function testWithAddedSymbolsAtIndex()
+    function testWithAddedTokensAtIndex()
     {
-        $subject = new Rule(['foo', 'bar'], $code = 'someCode();');
-        $result = $subject->withAddedSymbols(['lorem', 'ipsum'], 1);
-        $expected = ['foo', 'lorem', 'ipsum', 'bar'];
+        $oldTokens = $this->tokenList(['foo', 'bar']);
+        $addTokens = $this->tokenList(['lorem', 'ipsum']);
+        $expected = $this->tokenList(['foo', 'lorem', 'ipsum', 'bar']);
+        $code = 'someCode();';
 
-        $this->assertEquals($expected, $result->getSymbols());
+        $subject = new Rule($oldTokens, $code);
+        $result = $subject->withAddedTokens($addTokens, 1);
+
+        $this->assertEquals($expected, $result->getTokens());
         $this->assertEquals($code, $result->getCode());
     }
 
     function testToString()
     {
-        $subject = new Rule($symbols = ['foo', 'bar'], '$result = runSomeFn();');
+        $tokens = $this->tokenList(['foo', 'bar']);
+        $code = '$result = runSomeFn();';
+
+        $subject = new Rule($tokens, $code);
         $expected = 'foo bar { $result = runSomeFn(); }';
 
         $this->assertEquals($expected, $subject->toString());
-    }
-
-    function testCastToString()
-    {
-        $subject = new Rule($symbols = ['foo', 'bar'], '$result = runSomeFn();');
-        $expected = 'foo bar { $result = runSomeFn(); }';
-
-        $this->assertEquals($expected, (string) $subject);
     }
 }

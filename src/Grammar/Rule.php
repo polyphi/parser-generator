@@ -6,14 +6,14 @@ namespace Polyphi\Parsers\Grammar;
 
 use Polyphi\Parsers\Utils\InsertArrayCapableTrait;
 
-class Rule
+class Rule extends GrammarNode
 {
     use InsertArrayCapableTrait {
         insertArray as protected;
     }
 
-    /** @var string[] */
-    protected $symbols;
+    /** @var Token[] */
+    protected $tokens;
 
     /** @var string */
     protected $code;
@@ -21,23 +21,23 @@ class Rule
     /**
      * Constructor.
      *
-     * @param string[] $symbols The symbols for the rule as a list of strings.
-     * @param string   $code    The code for the rule, without the curly braces.
+     * @param Token[] $tokens The list of tokens for the rule.
+     * @param string  $code   The code for the rule, without the curly braces.
      */
-    public function __construct(array $symbols, string $code)
+    public function __construct(array $tokens, string $code)
     {
-        $this->symbols = $symbols;
+        $this->tokens = $tokens;
         $this->code = $code;
     }
 
     /**
-     * Retrieves the symbols for the rule.
+     * Retrieves the tokens for the rule.
      *
-     * @return string[] A list of strings.
+     * @return Token[] A list of token instances.
      */
-    public function getSymbols(): array
+    public function getTokens(): array
     {
-        return $this->symbols;
+        return $this->tokens;
     }
 
     /**
@@ -51,32 +51,32 @@ class Rule
     }
 
     /**
-     * Creates a derived copy of the rule with different symbols.
+     * Creates a derived copy of the rule with different tokens.
      *
-     * @param string[] $symbols A list of symbol names as strings.
+     * @param Token[] $tokens The list of new tokens.
      *
      * @return static The created instance.
      */
-    public function withSymbols(array $symbols): self
+    public function withTokens(array $tokens): self
     {
         $new = clone $this;
-        $new->symbols = $symbols;
+        $new->tokens = $tokens;
 
         return $new;
     }
 
     /**
-     * Creates a derived copy of the rule with added symbols.
+     * Creates a derived copy of the rule with added tokens.
      *
-     * @param string[] $symbols The list of symbol names as strings.
-     * @param int|null $idx     Optional index for where to add the new symbols in the existing list.
+     * @param Token[]  $tokens The list of tokens to add.
+     * @param int|null $idx    Optional index for where to add the new tokens in the existing list.
      *
      * @return static The created instance.
      */
-    public function withAddedSymbols(array $symbols, ?int $idx = null): self
+    public function withAddedTokens(array $tokens, ?int $idx = null): self
     {
         $new = clone $this;
-        $new->symbols = $this->insertArray($new->symbols, $symbols, $idx);
+        $new->tokens = $this->insertArray($new->tokens, $tokens, $idx);
 
         return $new;
     }
@@ -84,46 +84,30 @@ class Rule
     /**
      * Creates a derived copy of the rule with different code.
      *
-     * @param string $action The string of new code.
+     * @param string $code The string of new code.
      *
      * @return static The created instance.
      */
-    public function withAction(string $action): self
+    public function withCode(string $code): self
     {
         $new = clone $this;
-        $new->code = $action;
+        $new->code = $code;
 
         return $new;
     }
 
-    /**
-     * Transforms the rule instance into the equivalent Yacc grammar syntax.
-     *
-     * @return string A string containing grammar code for the rule.
-     */
+    /** @inheritDoc */
     public function toString(): string
     {
-        $symbolList = array_map(function ($match) {
-            return $match === ''
-                ? '/* empty */'
-                : $match;
-        }, $this->symbols);
+        $tokens = array_map(function (Token $token) {
+            $tokenStr = trim($token->toString());
 
-        $symbolListStr = implode(' ', $symbolList);
-        $action = empty($this->code)
-            ? ''
-            : "{ $this->code }";
+            return empty($tokenStr) ? '/* empty */' : $tokenStr;
+        }, $this->tokens);
 
-        return trim("{$symbolListStr} $action");
-    }
+        $tokens = implode(' ', $tokens);
+        $action = empty($this->code) ? '' : "{ $this->code }";
 
-    /**
-     * Casts the rule to a string.
-     *
-     * @see Rule::toString()
-     */
-    public function __toString(): string
-    {
-        return $this->toString();
+        return trim("{$tokens} $action");
     }
 }
