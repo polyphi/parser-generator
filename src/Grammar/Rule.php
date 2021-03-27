@@ -15,6 +15,7 @@ class Rule
     /** @var string[] */
     protected $symbols;
 
+    /** @var string */
     protected $code;
 
     /**
