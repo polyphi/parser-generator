@@ -34,5 +34,9 @@
     "branch-alias": {
       "dev-initial": "0.1.x-dev"
     }
+  },
+  "scripts": {
+    "phpcs": "vendor/bin/phpcs -s --runtime-set ignore_warnings_on_exit 1",
+    "psalm": "vendor/bin/psalm --show-info=true --diff"
   }
 }
