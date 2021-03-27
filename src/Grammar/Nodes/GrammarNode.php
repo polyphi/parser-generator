@@ -7,9 +7,9 @@ namespace Polyphi\Parsers\Grammar\Nodes;
 abstract class GrammarNode
 {
     /**
-     * Returns the grammar code for this node.
+     * Generates the YACC grammar code snippet for this node.
      *
-     * @return string
+     * @return string The generated Yacc code snippet.
      */
     abstract public function toString(): string;
 
