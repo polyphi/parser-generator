@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Polyphi\Parsers;
 
-use Polyphi\Parsers\Grammar\Declaration;
-use Polyphi\Parsers\Grammar\Rule;
+use Polyphi\Parsers\Grammar\Nodes\Declaration;
+use Polyphi\Parsers\Grammar\Nodes\Rule;
 use Polyphi\Parsers\Utils\InsertArrayCapableTrait;
 
 class Grammar

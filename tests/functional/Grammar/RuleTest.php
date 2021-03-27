@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Polyphi\Parsers\Test\Func\Grammar;
 
 use PHPUnit\Framework\TestCase;
-use Polyphi\Parsers\Grammar\GrammarNode;
-use Polyphi\Parsers\Grammar\Rule;
+use Polyphi\Parsers\Grammar\Nodes\GrammarNode;
+use Polyphi\Parsers\Grammar\Nodes\Rule;
 use Polyphi\Parsers\Test\Helpers\TokenListTestHelper;
 
 class RuleTest extends TestCase

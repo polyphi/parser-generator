@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Polyphi\Parsers\Grammar;
+namespace Polyphi\Parsers\Grammar\Nodes;
 
 class LiteralToken extends Token
 {

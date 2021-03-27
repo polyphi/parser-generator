@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Polyphi\Parsers\Test\Helpers;
 
-use Polyphi\Parsers\Grammar\Token;
+use Polyphi\Parsers\Grammar\Nodes\Token;
 
 trait TokenListTestHelper
 {

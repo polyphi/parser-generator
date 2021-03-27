@@ -6,15 +6,16 @@ namespace Polyphi\Parsers\Test\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Polyphi\Parsers\Grammar;
+use Polyphi\Parsers\Grammar\Nodes;
 
 class GrammarTest extends TestCase
 {
     function testGetDeclarations()
     {
         $decls = [
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
         ];
 
         $subject = new Grammar($decls, []);
@@ -26,11 +27,11 @@ class GrammarTest extends TestCase
     {
         $rules = [
             'foo' => [
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
             'bar' => [
-                $this->createMock(Grammar\Rule::class),
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
         ];
 
@@ -43,11 +44,11 @@ class GrammarTest extends TestCase
     {
         $rules = [
             'foo' => [
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
             'bar' => $barRules = [
-                $this->createMock(Grammar\Rule::class),
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
         ];
 
@@ -60,11 +61,11 @@ class GrammarTest extends TestCase
     {
         $rules = [
             'foo' => [
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
             'bar' => [
-                $this->createMock(Grammar\Rule::class),
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
         ];
 
@@ -76,23 +77,23 @@ class GrammarTest extends TestCase
     function testWithDeclarations()
     {
         $oldDecls = [
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
         ];
 
         $newDecls = [
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
         ];
 
         $rules = [
             'foo' => [
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
             'bar' => [
-                $this->createMock(Grammar\Rule::class),
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
         ];
 
@@ -106,32 +107,32 @@ class GrammarTest extends TestCase
     function testWithAddedDeclarations()
     {
         $oldDecls = [
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
         ];
 
         $newDecls = [
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
         ];
 
         $rules = [
             'foo' => [
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
             'bar' => [
-                $this->createMock(Grammar\Rule::class),
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
         ];
 
         $expected = [
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
         ];
 
         $index = 2;
@@ -155,28 +156,28 @@ class GrammarTest extends TestCase
     function testWithRules()
     {
         $decls = [
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
         ];
 
         $oldRules = [
             'foo' => [
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
             'bar' => [
-                $this->createMock(Grammar\Rule::class),
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
         ];
 
         $newRules = [
             'lorem' => [
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
             'ipsum' => [
-                $this->createMock(Grammar\Rule::class),
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
         ];
 
@@ -190,33 +191,33 @@ class GrammarTest extends TestCase
     function testWithAddedRules()
     {
         $decls = [
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
         ];
 
         $oldRules = [
             'foo' => [
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
             'bar' => [
-                $this->createMock(Grammar\Rule::class),
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
         ];
 
         $nonTerminal = 'bar';
         $rulesToAdd = [
-            $this->createMock(Grammar\Rule::class),
-            $this->createMock(Grammar\Rule::class),
+            $this->createMock(Nodes\Rule::class),
+            $this->createMock(Nodes\Rule::class),
         ];
         $index = 2;
 
         $newRules = [
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
         ];
 
         $expected = [
@@ -243,25 +244,25 @@ class GrammarTest extends TestCase
     function testWithAddedRulesNewNonTerminal()
     {
         $decls = [
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
         ];
 
         $oldRules = [
             'foo' => [
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
             'bar' => [
-                $this->createMock(Grammar\Rule::class),
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
         ];
 
         $nonTerminal = 'new';
         $rulesToAdd = [
-            $this->createMock(Grammar\Rule::class),
-            $this->createMock(Grammar\Rule::class),
+            $this->createMock(Nodes\Rule::class),
+            $this->createMock(Nodes\Rule::class),
         ];
         $index = 2;
 
@@ -288,31 +289,31 @@ class GrammarTest extends TestCase
     function testMerge()
     {
         $decls1 = [
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
         ];
         $decls2 = [
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
-            $this->createMock(Grammar\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
+            $this->createMock(Nodes\Declaration::class),
         ];
 
         $rules1 = [
             'foo' => $fooRules1 = [
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
             'bar' => $barRules = [
-                $this->createMock(Grammar\Rule::class),
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
         ];
         $rules2 = [
             'foo' => $fooRules2 = [
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
             'baz' => $bazRules = [
-                $this->createMock(Grammar\Rule::class),
-                $this->createMock(Grammar\Rule::class),
+                $this->createMock(Nodes\Rule::class),
+                $this->createMock(Nodes\Rule::class),
             ],
         ];
 
@@ -338,17 +339,17 @@ class GrammarTest extends TestCase
         };
 
         $decls = [
-            $mockToStr(Grammar\Declaration::class, 'decl1'),
-            $mockToStr(Grammar\Declaration::class, 'decl2'),
+            $mockToStr(Nodes\Declaration::class, 'decl1'),
+            $mockToStr(Nodes\Declaration::class, 'decl2'),
         ];
 
         $rules = [
             'foo' => [
-                $mockToStr(Grammar\Rule::class, 'foo_rule'),
+                $mockToStr(Nodes\Rule::class, 'foo_rule'),
             ],
             'bar' => $barRules = [
-                $mockToStr(Grammar\Rule::class, 'bar_rule_1'),
-                $mockToStr(Grammar\Rule::class, 'bar_rule_2'),
+                $mockToStr(Nodes\Rule::class, 'bar_rule_1'),
+                $mockToStr(Nodes\Rule::class, 'bar_rule_2'),
             ],
         ];
 

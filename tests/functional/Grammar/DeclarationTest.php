@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Polyphi\Parsers\Test\Func\Grammar;
 
 use PHPUnit\Framework\TestCase;
-use Polyphi\Parsers\Grammar\Declaration;
+use Polyphi\Parsers\Grammar\Nodes\Declaration;
 use Polyphi\Parsers\Test\Helpers\TokenListTestHelper;
 
 class DeclarationTest extends TestCase

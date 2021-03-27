@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Polyphi\Parsers\Test\Unit\Grammar;
 
 use PHPUnit\Framework\TestCase;
-use Polyphi\Parsers\Grammar\GrammarNode;
-use Polyphi\Parsers\Grammar\Token;
+use Polyphi\Parsers\Grammar\Nodes\GrammarNode;
+use Polyphi\Parsers\Grammar\Nodes\Token;
 
 class TokenTest extends TestCase
 {
