@@ -19,10 +19,7 @@ class Declaration
     public const TYPE_UNION = 'union';
     public const TYPE_TYPE = 'type';
 
-    /**
-     * @var string
-     * @psalm-var Declaration::TYPE_*
-     */
+    /** @var string */
     protected $type;
 
     /** @var string[] */
@@ -31,10 +28,8 @@ class Declaration
     /**
      * Constructor.
      *
-     * @param string                    $type   One of the TYPE_* constants in {@link Declaration}.
-     * @param string[]                  $values A list of string values for the declaration's values.
-     *
-     * @psalm-param Declaration::TYPE_* $type
+     * @param string   $type   One of the TYPE_* constants in {@link Declaration}.
+     * @param string[] $values A list of string values for the declaration's values.
      */
     public function __construct(string $type, array $values = [])
     {
