@@ -301,9 +301,9 @@ class GrammarParser
     /**
      * Checks if a character is a valid identifier character.
      *
-     * @param string $char
+     * @param string $char The character to check.
      *
-     * @return bool
+     * @return bool True if the character is a valid identifier character, false if not.
      */
     protected function isIdentifierChar(string $char): bool
     {
