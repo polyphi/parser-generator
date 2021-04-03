@@ -4,8 +4,105 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "76f5c99aec6a7a6713d2ee3e69226360",
-    "packages": [],
+    "content-hash": "98a2313d9075950167759ffc3bc995f4",
+    "packages": [
+        {
+            "name": "ircmaxell/php-yacc",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ircmaxell/PHP-Yacc.git",
+                "reference": "1c5774c4e6dcbdf486098fb59c21345d17af67af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ircmaxell/PHP-Yacc/zipball/1c5774c4e6dcbdf486098fb59c21345d17af67af",
+                "reference": "1c5774c4e6dcbdf486098fb59c21345d17af67af",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": ">=0.8",
+                "phpunit/phpunit": ">=6.3"
+            },
+            "default-branch": true,
+            "bin": [
+                "bin/phpyacc"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PhpYacc\\": "lib/"
+                },
+                "files": [
+                    "lib/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Anthony Ferrara",
+                    "email": "ircmaxell@php.net"
+                }
+            ],
+            "description": "A PHP YACC Parser-Generator library",
+            "support": {
+                "issues": "https://github.com/ircmaxell/PHP-Yacc/issues",
+                "source": "https://github.com/ircmaxell/PHP-Yacc/tree/master"
+            },
+            "time": "2021-04-03T19:40:39+00:00"
+        },
+        {
+            "name": "mindplay/composer-locator",
+            "version": "2.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mindplay-dk/composer-locator.git",
+                "reference": "d206ce7a5a88f5336332f489be0c8988eddb7a38"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mindplay-dk/composer-locator/zipball/d206ce7a5a88f5336332f489be0c8988eddb7a38",
+                "reference": "d206ce7a5a88f5336332f489be0c8988eddb7a38",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0 || ^2.0",
+                "php": ">= 5.4"
+            },
+            "require-dev": {
+                "composer/composer": "^1.0 || ^2.0",
+                "mindplay/testies": "^0.3.0",
+                "symfony/filesystem": "^2.7 || ^3.0",
+                "symfony/process": "^2.7 || ^3.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "mindplay\\composer_locator\\Plugin"
+            },
+            "autoload": {
+                "classmap": [
+                    "src/ComposerLocator.php",
+                    "src/Plugin.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Locates Composer package root folders by package name",
+            "support": {
+                "issues": "https://github.com/mindplay-dk/composer-locator/issues",
+                "source": "https://github.com/mindplay-dk/composer-locator/tree/2.1.4"
+            },
+            "time": "2020-12-23T10:58:04+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "amphp/amp",
@@ -103,12 +200,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/byte-stream.git",
-                "reference": "f813a658f0446192c5e17f96727070ee9342b93a"
+                "reference": "acbd8002b3536485c997c4e019206b3f10ca15bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/byte-stream/zipball/f813a658f0446192c5e17f96727070ee9342b93a",
-                "reference": "f813a658f0446192c5e17f96727070ee9342b93a",
+                "url": "https://api.github.com/repos/amphp/byte-stream/zipball/acbd8002b3536485c997c4e019206b3f10ca15bd",
+                "reference": "acbd8002b3536485c997c4e019206b3f10ca15bd",
                 "shasum": ""
             },
             "require": {
@@ -165,7 +262,7 @@
             "support": {
                 "irc": "irc://irc.freenode.org/amphp",
                 "issues": "https://github.com/amphp/byte-stream/issues",
-                "source": "https://github.com/amphp/byte-stream/tree/master"
+                "source": "https://github.com/amphp/byte-stream/tree/v1.8.1"
             },
             "funding": [
                 {
@@ -173,7 +270,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-08-30T19:23:04+00:00"
+            "time": "2021-03-30T17:13:30+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
@@ -2574,12 +2671,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "2bd19c2e6edb918ab14d87f1c4b37d1f112d8f00"
+                "reference": "d427d75a155195970133974162e7fa9dbf3069da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/2bd19c2e6edb918ab14d87f1c4b37d1f112d8f00",
-                "reference": "2bd19c2e6edb918ab14d87f1c4b37d1f112d8f00",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/d427d75a155195970133974162e7fa9dbf3069da",
+                "reference": "d427d75a155195970133974162e7fa9dbf3069da",
                 "shasum": ""
             },
             "require": {
@@ -2623,7 +2720,7 @@
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer",
                 "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
-            "time": "2021-03-21T21:51:55+00:00"
+            "time": "2021-03-31T22:36:57+00:00"
         },
         {
             "name": "symfony/console",
@@ -2631,12 +2728,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "5da8b675121f9f4419b7052caa0cc6118a3ccd47"
+                "reference": "fb7e2447d39984358343685fb9f0e800cd79e6a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/5da8b675121f9f4419b7052caa0cc6118a3ccd47",
-                "reference": "5da8b675121f9f4419b7052caa0cc6118a3ccd47",
+                "url": "https://api.github.com/repos/symfony/console/zipball/fb7e2447d39984358343685fb9f0e800cd79e6a3",
+                "reference": "fb7e2447d39984358343685fb9f0e800cd79e6a3",
                 "shasum": ""
             },
             "require": {
@@ -2722,7 +2819,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-03-23T14:20:07+00:00"
+            "time": "2021-03-28T09:44:11+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -3290,12 +3387,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/service-contracts.git",
-                "reference": "1309413986521646bb0ba91140afdc2a61ed8cfe"
+                "reference": "f040a30e04b57fbcc9c6cbcf4dbaa96bd318b9bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/1309413986521646bb0ba91140afdc2a61ed8cfe",
-                "reference": "1309413986521646bb0ba91140afdc2a61ed8cfe",
+                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/f040a30e04b57fbcc9c6cbcf4dbaa96bd318b9bb",
+                "reference": "f040a30e04b57fbcc9c6cbcf4dbaa96bd318b9bb",
                 "shasum": ""
             },
             "require": {
@@ -3362,7 +3459,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-03-23T23:28:01+00:00"
+            "time": "2021-04-01T10:43:52+00:00"
         },
         {
             "name": "symfony/string",
@@ -3500,16 +3597,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "4.6.4",
+            "version": "4.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "97fe86c4e158b5a57c5150aa5055c38b5a809aab"
+                "reference": "d4377c0baf3ffbf0b1ec6998e8d1be2a40971005"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/97fe86c4e158b5a57c5150aa5055c38b5a809aab",
-                "reference": "97fe86c4e158b5a57c5150aa5055c38b5a809aab",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/d4377c0baf3ffbf0b1ec6998e8d1be2a40971005",
+                "reference": "d4377c0baf3ffbf0b1ec6998e8d1be2a40971005",
                 "shasum": ""
             },
             "require": {
@@ -3551,6 +3648,7 @@
                 "slevomat/coding-standard": "^6.3.11",
                 "squizlabs/php_codesniffer": "^3.5",
                 "symfony/process": "^4.3",
+                "weirdan/phpunit-appveyor-reporter": "^1.0.0",
                 "weirdan/prophecy-shim": "^1.0 || ^2.0"
             },
             "suggest": {
@@ -3598,9 +3696,9 @@
             ],
             "support": {
                 "issues": "https://github.com/vimeo/psalm/issues",
-                "source": "https://github.com/vimeo/psalm/tree/4.6.4"
+                "source": "https://github.com/vimeo/psalm/tree/4.7.0"
             },
-            "time": "2021-03-16T23:28:18+00:00"
+            "time": "2021-03-29T03:54:38+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -3715,6 +3813,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "ircmaxell/php-yacc": 20,
+        "mindplay/composer-locator": 0,
         "phpunit/phpunit": 0,
         "vimeo/psalm": 0,
         "webmozart/path-util": 0,
