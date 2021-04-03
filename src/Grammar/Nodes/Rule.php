@@ -24,7 +24,7 @@ class Rule extends GrammarNode
      * @param Token[] $tokens The list of tokens for the rule.
      * @param string  $code   The code for the rule, without the curly braces.
      */
-    public function __construct(array $tokens, string $code)
+    public function __construct(array $tokens = [], string $code = '')
     {
         $this->tokens = $tokens;
         $this->code = $code;
