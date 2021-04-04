@@ -505,4 +505,52 @@ class GrammarParserTest extends TestCase
 
         $this->assertEquals(new Grammar([], $rules), $result);
     }
+
+    function testParseRulePrecLiteral()
+    {
+        $result = $this->subject->parse("
+            %%
+            rule:
+                SOME_TOK %prec '+'   { doNamedToken(); }
+            ;
+            %%
+        ");
+
+        $rules = [
+            'rule' => [
+                new Grammar\Nodes\Rule([
+                    new NamedToken('SOME_TOK'),
+                ],
+                    'doNamedToken();',
+                    new LiteralToken('+')
+                ),
+            ],
+        ];
+
+        $this->assertEquals(new Grammar([], $rules), $result);
+    }
+
+    function testParseRulePrecNamed()
+    {
+        $result = $this->subject->parse("
+            %%
+            rule:
+                SOME_TOK %prec OTHER_TOK   { doNamedToken(); }
+            ;
+            %%
+        ");
+
+        $rules = [
+            'rule' => [
+                new Grammar\Nodes\Rule([
+                    new NamedToken('SOME_TOK'),
+                ],
+                    'doNamedToken();',
+                    new NamedToken('OTHER_TOK')
+                ),
+            ],
+        ];
+
+        $this->assertEquals(new Grammar([], $rules), $result);
+    }
 }

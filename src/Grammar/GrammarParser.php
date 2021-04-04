@@ -170,9 +170,37 @@ class GrammarParser
         $this->skipWs();
 
         $tokens = $this->parseTokenList();
+        $precTok = $this->parseRulePrec();
         $code = $this->parseCode();
 
-        return new Rule($tokens, $code);
+        return new Rule($tokens, $code, $precTok);
+    }
+
+    /**
+     * Parses a "%prec" directive for a rule.
+     *
+     * @see parseIdentifier()
+     * @see parseToken()
+     *
+     * @return Token|null The token that follows the "%prec" keyword, or null if no "%prec" was parsed.
+     * @throws GrammarParseException If parsing failed.
+     */
+    protected function parseRulePrec(): ?Token
+    {
+        if ($this->getChar() === '%') {
+            $this->idx++;
+            $precKw = $this->parseIdentifier();
+
+            if ($precKw !== 'prec') {
+                $this->throwException('Excepted %prec keyword');
+            }
+
+            $this->skipWs();
+
+            return $this->parseToken();
+        }
+
+        return null;
     }
 
     /**
@@ -226,20 +254,37 @@ class GrammarParser
     {
         $tokens = [];
 
-        do {
+        $this->skipWs();
+        while (($token = $this->parseToken()) !== null) {
+            $tokens[] = $token;
             $this->skipWs();
-
-            $char = $this->getChar();
-            if ($char === '\'') {
-                $tokens[] = $this->parseLiteralToken();
-            } elseif ($this->isIdentifierChar($char)) {
-                $tokens[] = new NamedToken($this->parseIdentifier());
-            } else {
-                break;
-            }
-        } while (true);
+        }
 
         return $tokens;
+    }
+
+    /**
+     * Parses a single token.
+     *
+     * @see parseIdentifier()
+     *
+     * @return Token The parsed token.
+     *
+     * @throws GrammarParseException If parsing failed.
+     */
+    protected function parseToken(): ?Token
+    {
+        $char = $this->getChar();
+
+        if ($char === '\'') {
+            return $this->parseLiteralToken();
+        }
+
+        if ($this->isIdentifierChar($char)) {
+            return new NamedToken($this->parseIdentifier());
+        }
+
+        return null;
     }
 
     /**
