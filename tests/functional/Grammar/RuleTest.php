@@ -7,6 +7,7 @@ namespace Polyphi\Parsers\Test\Func\Grammar;
 use PHPUnit\Framework\TestCase;
 use Polyphi\Parsers\Grammar\Nodes\GrammarNode;
 use Polyphi\Parsers\Grammar\Nodes\Rule;
+use Polyphi\Parsers\Grammar\Nodes\Token;
 use Polyphi\Parsers\Test\Helpers\TokenListTestHelper;
 
 class RuleTest extends TestCase
@@ -33,6 +34,21 @@ class RuleTest extends TestCase
         $subject = new Rule([], $code = 'runSomething(); $stack[] = "add me!!";');
 
         $this->assertEquals($code, $subject->getCode());
+    }
+
+    function testGetPrec()
+    {
+        $prec = $this->createMock(Token::class);
+        $subject = new Rule([], $code = '', $prec);
+
+        $this->assertEquals($prec, $subject->getPrecToken());
+    }
+
+    function testGetPrecNull()
+    {
+        $subject = new Rule([], $code = '', null);
+
+        $this->assertNull($subject->getPrecToken());
     }
 
     function testWithTokens()
@@ -80,9 +96,10 @@ class RuleTest extends TestCase
     {
         $tokens = $this->tokenList(['foo', 'bar']);
         $code = '$result = runSomeFn();';
+        $prec = $this->createConfiguredMock(Token::class, ['toString' => 'FOO']);
 
-        $subject = new Rule($tokens, $code);
-        $expected = 'foo bar { $result = runSomeFn(); }';
+        $subject = new Rule($tokens, $code, $prec);
+        $expected = 'foo bar %prec FOO { $result = runSomeFn(); }';
 
         $this->assertEquals($expected, $subject->toString());
     }

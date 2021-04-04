@@ -18,16 +18,21 @@ class Rule extends GrammarNode
     /** @var string */
     protected $code;
 
+    /** @var Token|null */
+    protected $prec;
+
     /**
      * Constructor.
      *
-     * @param Token[] $tokens The list of tokens for the rule.
-     * @param string  $code   The code for the rule, without the curly braces.
+     * @param Token[]    $tokens The list of tokens for the rule.
+     * @param string     $code   The code for the rule, without the curly braces.
+     * @param Token|null $prec   Optional precedence override. Gives the rule the same precedence level as this token.
      */
-    public function __construct(array $tokens = [], string $code = '')
+    public function __construct(array $tokens = [], string $code = '', ?Token $prec = null)
     {
         $this->tokens = $tokens;
         $this->code = $code;
+        $this->prec = $prec;
     }
 
     /**
@@ -48,6 +53,16 @@ class Rule extends GrammarNode
     public function getCode(): string
     {
         return $this->code;
+    }
+
+    /**
+     * Retrieves the precedence directive.
+     *
+     * @return Token|null The token that this rule's precedence is equal to, or null.
+     */
+    public function getPrecToken(): ?Token
+    {
+        return $this->prec;
     }
 
     /**
@@ -96,6 +111,21 @@ class Rule extends GrammarNode
         return $new;
     }
 
+    /**
+     * Creates a derived copy of the rule with different precedence directive.
+     *
+     * @param Token|null $token The precedence token, or null for no precedence directive.
+     *
+     * @return static The created instance.
+     */
+    public function withPrec(?Token $token): self
+    {
+        $new = clone $this;
+        $new->prec = $token;
+
+        return $new;
+    }
+
     /** @inheritDoc */
     public function toString(): string
     {
@@ -107,7 +137,10 @@ class Rule extends GrammarNode
 
         $tokens = implode(' ', $tokens);
         $action = empty($this->code) ? '' : "{ $this->code }";
+        $prec = $this->prec
+            ? ' %prec ' . $this->prec->toString()
+            : '';
 
-        return trim("{$tokens} $action");
+        return trim("{$tokens}$prec $action");
     }
 }
